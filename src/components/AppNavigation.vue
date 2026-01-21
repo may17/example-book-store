@@ -1,7 +1,13 @@
+<script setup lang="ts">
+const appName = 'bookstore'
+</script>
+
 <template>
   <nav>
     <ul>
-      <li><strong>My App</strong></li>
+      <li>
+        <strong>{{ appName.toUpperCase() }}</strong>
+      </li>
     </ul>
     <ul>
       <li><a href="#">Home</a></li>
