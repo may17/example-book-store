@@ -11,8 +11,7 @@ const appName = 'bookstore'
     </ul>
     <ul>
       <li><a href="#">Home</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#" role="button">Login</a></li>
+      <li><a href="#">Books</a></li>
     </ul>
   </nav>
 </template>
