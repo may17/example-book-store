@@ -1,5 +1,23 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
+type NavigationItem = {
+  label: string
+  link: string
+}
+
 const appName = 'bookstore'
+
+const navigationItems = ref<NavigationItem[]>([
+  {
+    label: 'Home',
+    link: '#',
+  },
+  {
+    label: 'Books',
+    link: '#',
+  },
+])
 </script>
 
 <template>
@@ -10,9 +28,12 @@ const appName = 'bookstore'
       </li>
     </ul>
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#" role="button">Login</a></li>
+      <li>
+        <a href="#">{{ navigationItems[0].label }}</a>
+      </li>
+      <li>
+        <a href="#">{{ navigationItems[1].label }}</a>
+      </li>
     </ul>
   </nav>
 </template>
