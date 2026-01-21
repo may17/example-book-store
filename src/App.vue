@@ -1,11 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AppNavigation from './components/AppNavigation.vue'
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
-</template>
+  <main class="container">
+    <AppNavigation />
 
-<style scoped></style>
+    <header>
+      <h1>Hello Vue + Pico!</h1>
+      <p>Your first SFC is now registered and styled.</p>
+    </header>
+  </main>
+</template>
