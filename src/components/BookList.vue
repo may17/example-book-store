@@ -100,9 +100,9 @@ const toggleFavorite = (book: Book) => {
       </thead>
       <tbody>
         <tr v-for="book in books" :key="book.id">
-          <td>{{ book.title }} <span v-if="book.isFavorite">⭐</span></td>
-          <td>{{ book.isbn }}</td>
-          <td>
+          <td style="width: 55%">{{ book.title }} <span v-if="book.isFavorite">⭐</span></td>
+          <td style="width: 30%">{{ book.isbn }}</td>
+          <td style="width: 15%">
             <button @click="toggleFavorite(book)">
               {{ book.isFavorite ? 'Remove' : 'Add' }}
             </button>
