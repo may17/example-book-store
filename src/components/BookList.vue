@@ -79,20 +79,26 @@ const books = ref<Book[]>([
   },
 ])
 
+const searchQuery = ref('')
+
 const toggleFavorite = (book: Book) => {
   book.isFavorite = !book.isFavorite
 }
 
 const featuredBooks = computed(() => {
-  return books.value.map((book) => {
-    if (book.publisher === 'Addison-Wesley') {
-      return {
-        ...book,
-        title: `🔥 ${book.title}`,
+  return books.value
+    .filter((book) => {
+      return book.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+    })
+    .map((book) => {
+      if (book.publisher === 'Addison-Wesley') {
+        return {
+          ...book,
+          title: `🔥 ${book.title}`,
+        }
       }
-    }
-    return book
-  })
+      return book
+    })
 })
 </script>
 
@@ -101,6 +107,7 @@ const featuredBooks = computed(() => {
     <h1>Books</h1>
     <p>A list of our books</p>
   </header>
+  <input type="search" v-model="searchQuery" placeholder="Search books..." />
   <div v-if="books.length > 0">
     <table>
       <thead>
