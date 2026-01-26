@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
 
 type NavigationItem = {
@@ -10,12 +11,12 @@ const appName = 'bookstore'
 
 const navigationItems = ref<NavigationItem[]>([
   {
-    label: 'Home',
-    link: '#',
+    label: 'Books',
+    link: 'books',
   },
   {
-    label: 'Books',
-    link: '#',
+    label: 'About',
+    link: 'about',
   },
 ])
 </script>
@@ -29,8 +30,14 @@ const navigationItems = ref<NavigationItem[]>([
     </ul>
     <ul>
       <li v-for="navigationItem in navigationItems" :key="navigationItem.label">
-        <a :href="navigationItem.link">{{ navigationItem.label }}</a>
+        <RouterLink :to="{ name: navigationItem.link }">{{ navigationItem.label }}</RouterLink>
       </li>
     </ul>
   </nav>
 </template>
+
+<style scoped>
+.router-link-active {
+  color: var(--pico-contrast)
+}
+</style>
