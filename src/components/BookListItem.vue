@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
+
 const props = defineProps<{
   title: string
   isbn: string
@@ -21,7 +23,11 @@ const emit = defineEmits<{
       {{ props.title }}
       <span v-if="props.isFavorite">⭐</span>
     </td>
-    <td style="width: 30%">{{ props.isbn }}</td>
+    <td style="width: 30%">
+      <RouterLink :to="{ name: 'book-detail', params: { isbn: props.isbn } }">
+        {{ props.isbn }}
+      </RouterLink>
+    </td>
     <td style="width: 15%">
       <button @click="emit('toggle-favorite')">
         {{ props.isFavorite ? 'Remove' : 'Add' }}

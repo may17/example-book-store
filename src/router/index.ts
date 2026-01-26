@@ -1,6 +1,7 @@
 
 import { createRouter, createWebHistory } from 'vue-router';
 import BookListView from '../views/BookListView.vue';
+import BookDetailView from '../views/BookDetailView.vue';
 import AboutView from '../views/AboutView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 
@@ -15,6 +16,11 @@ const router = createRouter({
       path: '/books',
       name: 'books',
       component: BookListView,
+    },
+    {
+      path: '/books/:isbn',
+      name: 'book-detail',
+      component: BookDetailView,
     },
     {
       path: '/about',
