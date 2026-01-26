@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
+import BookListItem from './BookListItem.vue'
 
 interface Book {
   id: string
@@ -43,10 +44,26 @@ watch(searchQuery, () => {
   fetchBooks()
 })
 
-const toggleFavorite = (bookId: string) => {
+const toggleFavorite = async (bookId: string) => {
   const book = books.value.find(b => b.id === bookId)
   if (book) {
-    book.isFavorite = !book.isFavorite
+    try {
+      const newFavoriteState = !book.isFavorite
+      const response = await fetch(`${API_URL}/books/${bookId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ isFavorite: newFavoriteState }),
+      })
+      if (response.ok) {
+        book.isFavorite = newFavoriteState
+      } else {
+        console.error('Failed to update favorite status')
+      }
+    } catch (error) {
+      console.error('Error updating favorite status:', error)
+    }
   }
 }
 
@@ -73,21 +90,16 @@ const featuredBooks = computed(() => {
     <table>
       <thead>
         <tr>
+          <th>Cover</th>
           <th>Title</th>
           <th>ISBN</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="book in featuredBooks" :key="book.id">
-          <td style="width: 55%">{{ book.title }} <span v-if="book.isFavorite">⭐</span></td>
-          <td style="width: 30%">{{ book.isbn }}</td>
-          <td style="width: 15%">
-            <button @click="toggleFavorite(book.id)">
-              {{ book.isFavorite ? 'Remove' : 'Add' }}
-            </button>
-          </td>
-        </tr>
+        <BookListItem v-for="book in featuredBooks" :key="book.id" :title="book.title" :isbn="book.isbn"
+          :num-pages="book.numPages" :cover="book.cover" :is-favorite="book.isFavorite"
+          @toggle-favorite="toggleFavorite(book.id)" />
       </tbody>
     </table>
   </div>
