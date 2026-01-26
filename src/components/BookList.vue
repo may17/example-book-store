@@ -2,7 +2,8 @@
 import BookListItem from './BookListItem.vue'
 import { useBooks } from '../composables/useBooks'
 
-const { books, searchQuery, toggleFavorite, featuredBooks } = useBooks()
+const API_URL = 'http://localhost:4730'
+const { books, searchQuery, toggleFavorite, featuredBooks, loading, error } = useBooks(API_URL)
 </script>
 
 <template>
@@ -11,6 +12,8 @@ const { books, searchQuery, toggleFavorite, featuredBooks } = useBooks()
     <p>A list of our books</p>
   </header>
   <input type="search" v-model="searchQuery" placeholder="Search books..." />
+  <p v-if="loading">Lade Bücher…</p>
+  <p v-if="error">Fehler beim Laden der Daten.</p>
   <div v-if="books.length > 0">
     <table>
       <thead>
