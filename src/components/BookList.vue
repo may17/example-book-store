@@ -36,12 +36,12 @@ const fetchBooks = async () => {
   }
 }
 
-onMounted(() => {
-  fetchBooks()
+onMounted(async () => {
+  await fetchBooks()
 })
 
-watch(searchQuery, () => {
-  fetchBooks()
+watch(searchQuery, async () => {
+  await fetchBooks()
 })
 
 const toggleFavorite = async (bookId: string) => {
