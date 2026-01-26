@@ -1,9 +1,5 @@
 
 import { createRouter, createWebHistory } from 'vue-router';
-import BookListView from '../views/BookListView.vue';
-import BookDetailView from '../views/BookDetailView.vue';
-import AboutView from '../views/AboutView.vue';
-import NotFoundView from '../views/NotFoundView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,23 +11,23 @@ const router = createRouter({
     {
       path: '/books',
       name: 'books',
-      component: BookListView,
+      component: () => import('../views/BookListView.vue'),
     },
     {
       path: '/books/:isbn',
       name: 'book-detail',
-      component: BookDetailView,
+      component: () => import('../views/BookDetailView.vue'),
       props: true,
     },
     {
       path: '/about',
       name: 'about',
-      component: AboutView,
+      component: () => import('../views/AboutView.vue'),
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
-      component: NotFoundView,
+      component: () => import('../views/NotFoundView.vue'),
     },
   ],
 });
