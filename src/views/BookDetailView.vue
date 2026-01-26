@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue'
-import { useRoute, RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import type { Book } from '../types'
 
-const route = useRoute()
+const props = defineProps<{ isbn: string }>()
+
 const book = ref<Book | null>(null)
 const loading = ref(false)
 const error = ref<unknown | null>(null)
@@ -30,9 +31,8 @@ const fetchBook = async (isbn: string) => {
 }
 
 watchEffect(() => {
-  const isbn = route.params.isbn as string
-  if (isbn) {
-    fetchBook(isbn)
+  if (props.isbn) {
+    fetchBook(props.isbn)
   }
 })
 </script>

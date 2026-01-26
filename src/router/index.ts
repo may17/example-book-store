@@ -21,6 +21,7 @@ const router = createRouter({
       path: '/books/:isbn',
       name: 'book-detail',
       component: BookDetailView,
+      props: true,
     },
     {
       path: '/about',
