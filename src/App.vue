@@ -5,8 +5,6 @@ import AppNavigation from './components/AppNavigation.vue'
 <template>
   <div class="container">
     <AppNavigation />
-    <main>
-      <router-view />
-    </main>
+    <router-view />
   </div>
 </template>

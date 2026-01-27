@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { useBookStore } from '../stores/books'
 
 type NavigationItem = {
   label: string
@@ -8,10 +9,11 @@ type NavigationItem = {
 }
 
 const appName = 'bookstore'
+const store = useBookStore()
 
-const navigationItems = ref<NavigationItem[]>([
+const navigationItems = computed<NavigationItem[]>(() => [
   {
-    label: 'Books',
+    label: `Books (${store.totalBooks})`,
     link: 'books',
   },
   {
@@ -30,7 +32,9 @@ const navigationItems = ref<NavigationItem[]>([
     </ul>
     <ul>
       <li v-for="navigationItem in navigationItems" :key="navigationItem.label">
-        <RouterLink :to="{ name: navigationItem.link }">{{ navigationItem.label }}</RouterLink>
+        <RouterLink :to="{ name: navigationItem.link }">
+          {{ navigationItem.label }}
+        </RouterLink>
       </li>
     </ul>
   </nav>

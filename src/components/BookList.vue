@@ -1,9 +1,17 @@
 <script setup lang="ts">
+import { onMounted, watch } from 'vue'
 import BookListItem from './BookListItem.vue'
-import { useBooks } from '../composables/useBooks'
+import { useBookStore } from '../stores/books'
 
-const API_URL = 'http://localhost:4730'
-const { books, searchQuery, toggleFavorite, featuredBooks, loading, error } = useBooks(API_URL)
+const store = useBookStore()
+
+onMounted(() => {
+  store.fetchBooks()
+})
+
+watch(() => store.searchQuery, () => {
+  store.fetchBooks()
+})
 </script>
 
 <template>
@@ -11,10 +19,10 @@ const { books, searchQuery, toggleFavorite, featuredBooks, loading, error } = us
     <h1>Books</h1>
     <p>A list of our books</p>
   </header>
-  <input type="search" v-model="searchQuery" placeholder="Search books..." />
-  <p v-if="loading">Lade Bücher…</p>
-  <p v-if="error">Fehler beim Laden der Daten.</p>
-  <div v-if="books.length > 0">
+  <input type="search" v-model="store.searchQuery" placeholder="Search books..." />
+  <p v-if="store.loading">Lade Bücher…</p>
+  <p v-if="store.error">Fehler beim Laden der Daten.</p>
+  <div v-if="store.books.length > 0">
     <table>
       <thead>
         <tr>
@@ -25,9 +33,9 @@ const { books, searchQuery, toggleFavorite, featuredBooks, loading, error } = us
         </tr>
       </thead>
       <tbody>
-        <BookListItem v-for="book in featuredBooks" :key="book.id" :title="book.title" :isbn="book.isbn"
+        <BookListItem v-for="book in store.featuredBooks" :key="book.id" :title="book.title" :isbn="book.isbn"
           :num-pages="book.numPages" :cover="book.cover" :is-favorite="book.isFavorite"
-          @toggle-favorite="toggleFavorite(book.id)" />
+          @toggle-favorite="store.toggleFavorite(book.id)" />
       </tbody>
     </table>
   </div>
