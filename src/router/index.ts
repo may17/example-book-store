@@ -19,6 +19,12 @@ const router = createRouter({
       component: () => import('../views/BookDetailView.vue'),
       props: true,
     },
+      {
+      path: '/books/:isbn/edit',
+      name: 'book-edit',
+      component: () => import('../views/BookEditView.vue'),
+      props: true,
+    },
     {
       path: '/about',
       name: 'about',

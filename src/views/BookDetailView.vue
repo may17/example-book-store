@@ -60,6 +60,11 @@ watchEffect(() => {
           <p v-if="book.abstract"><strong>Zusammenfassung:</strong></p>
           <p v-if="book.abstract">{{ book.abstract }}</p>
           <span v-if="book.isFavorite">⭐ Zu Favoriten hinzugefügt</span>
+          <div style="margin-top: 1.5rem;">
+            <RouterLink :to="{ name: 'book-edit', params: { isbn: book.isbn } }">
+              <button>Bearbeiten</button>
+            </RouterLink>
+          </div>
         </div>
       </div>
     </div>
