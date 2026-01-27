@@ -1,4 +1,8 @@
+<script setup lang="ts">
+import AppNavigation from './components/AppNavigation.vue'
+</script>
 
 <template>
-    <router-view />
+  <AppNavigation />
+  <router-view />
 </template>
