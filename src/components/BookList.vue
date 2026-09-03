@@ -81,8 +81,9 @@ const books = ref<Book[]>([
 
 const searchQuery = ref('')
 
-const toggleFavorite = (book: Book) => {
-  book.isFavorite = !book.isFavorite
+const toggleFavorite = (bookId: string) => {
+  const book = books.value.find(({ id }) => id === bookId)
+  if (book) book.isFavorite = !book.isFavorite
 }
 
 const featuredBooks = computed(() => {
@@ -122,7 +123,7 @@ const featuredBooks = computed(() => {
           <td style="width: 55%">{{ book.title }} <span v-if="book.isFavorite">⭐</span></td>
           <td style="width: 30%">{{ book.isbn }}</td>
           <td style="width: 15%">
-            <button @click="toggleFavorite(book)">
+            <button @click="toggleFavorite(book.id)">
               {{ book.isFavorite ? 'Remove' : 'Add' }}
             </button>
           </td>
